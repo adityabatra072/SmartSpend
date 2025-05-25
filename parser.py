@@ -99,7 +99,7 @@ def clean_transactions(df):
             break
     df = df.iloc[:cutoff_index].reset_index(drop=True)
 
-    # ✅ Step 6: Add 'Type' and convert 'Amount' to positive
+    # Step 6: Add 'Type' and convert 'Amount' to positive
     df["Type"] = df["Amount"].apply(lambda x: "Debit" if x < 0 else "Credit")
     df["Amount"] = df["Amount"].abs()
 
@@ -125,11 +125,11 @@ def find_transaction_table(sheet_df, sheet_name="Unknown"):
         candidate = sheet_df.iloc[i+1:].copy()
         candidate.columns = header
         if is_transaction_table(candidate):
-            print(f"✅ Found transaction table in sheet '{sheet_name}' starting at row {i}")
+            print(f"Found transaction table in sheet '{sheet_name}' starting at row {i}")
             print("📌 Detected header:", header)
             return candidate
 
-    print(f"⚠️ No transaction table found in sheet '{sheet_name}'")
+    print(f"No transaction table found in sheet '{sheet_name}'")
     return None
 
 
@@ -169,7 +169,7 @@ def parse_and_save(file_path):
     dir_name = os.path.dirname(file_path)
     output_path = os.path.join(dir_name, f"{basename}_cleaned.csv")
     df.to_csv(output_path, index=False)
-    print(f"✅ Saved cleaned file to: {output_path}")
+    print(f"Saved cleaned file to: {output_path}")
     return output_path
 
 # Example usage:
